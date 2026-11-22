@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
+import ImageUpload from "./ImageUpload";
 
 export default function ProfileForm({ user }) {
   const router = useRouter();
@@ -70,10 +71,11 @@ export default function ProfileForm({ user }) {
           <label className={label}>Phone</label>
           <input name="phone" value={form.phone} onChange={update} placeholder="01712345678" className={field} />
         </div>
-        <div>
-          <label className={label}>Profile image URL</label>
-          <input name="image" value={form.image} onChange={update} placeholder="https://..." className={field} />
-        </div>
+      </div>
+
+      <div>
+        <label className={label}>Profile picture</label>
+        <ImageUpload round value={form.image} onChange={(url) => setForm((f) => ({ ...f, image: url }))} label="Upload photo" />
       </div>
 
       <div>

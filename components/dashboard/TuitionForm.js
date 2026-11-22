@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { SUBJECTS, CLASS_LEVELS } from "@/lib/constants";
+import ImageUpload from "./ImageUpload";
 
 const EMPTY = {
   title: "", subject: "", classLevel: "", mode: "Online", location: "",
@@ -26,7 +27,7 @@ export default function TuitionForm({ initial, submitLabel, onSubmit }) {
     if (!form.classLevel) return toast.error("Please choose a class level");
     if (form.location.trim().length < 2) return toast.error("Please enter a location or platform");
     if (!fee || fee < 100) return toast.error("Monthly fee must be at least 100");
-    if (!/^https?:\/\/\S+$/i.test(form.bannerImage.trim())) return toast.error("Banner image must be a valid link starting with http");
+    if (!/^https?:\/\/\S+$/i.test(form.bannerImage.trim())) return toast.error("Please upload a banner image");
     if (form.description.trim().length < 20) return toast.error("Description must be at least 20 characters");
 
     setSaving(true);
@@ -88,13 +89,8 @@ export default function TuitionForm({ initial, submitLabel, onSubmit }) {
       </div>
 
       <div>
-        <label className={label}>Banner image link</label>
-        <input name="bannerImage" value={form.bannerImage} onChange={update} placeholder="https://picsum.photos/seed/mytuition/800/500" className={field} />
-        <p className="mt-1 text-xs text-muted">Paste an image link for now. In Phase 8 this becomes a real file upload.</p>
-        {/^https?:\/\/\S+$/i.test(form.bannerImage.trim()) && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={form.bannerImage} alt="Banner preview" className="mt-3 h-40 w-full max-w-sm rounded-2xl border-2 border-outline object-cover" />
-        )}
+        <label className={label}>Banner image</label>
+        <ImageUpload value={form.bannerImage} onChange={(url) => setForm((f) => ({ ...f, bannerImage: url }))} label="Upload banner" />
       </div>
 
       <div>
