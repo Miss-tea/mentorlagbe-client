@@ -28,19 +28,19 @@ export default function SignInPage() {
     router.refresh();
   }
 
-  const input = "w-full rounded-xl border border-indigo-200 bg-white px-4 py-3 outline-none focus:border-[#FF6B4A]";
+  const input = "w-full rounded-xl border-2 border-line bg-canvas px-4 py-3 text-fg outline-none focus:border-coral";
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center bg-[#FFF8F0] px-4">
-      <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 rounded-3xl bg-white p-8 shadow-xl">
-        <h1 className="text-3xl font-bold text-[#1B1642]">Welcome back</h1>
+    <div className="flex min-h-[70vh] items-center justify-center px-4 py-12">
+      <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 rounded-3xl border border-line bg-surface p-8 shadow-xl">
+        <h1 className="text-3xl font-extrabold text-fg">Welcome back</h1>
         <input name="email" type="email" placeholder="Email" value={form.email} onChange={update} className={input} />
         <input name="password" type="password" placeholder="Password" value={form.password} onChange={update} className={input} />
-        <button disabled={loading} className="w-full rounded-xl bg-[#FF6B4A] py-3 font-bold text-white disabled:opacity-60">
+        <button disabled={loading} className="btn btn-primary w-full disabled:opacity-60">
           {loading ? "Signing in..." : "Sign In"}
         </button>
         <p className="text-center text-sm">
-          New here? <Link href="/sign-up" className="font-semibold text-[#FF6B4A]">Create an account</Link>
+          New here? <Link href="/sign-up" className="font-semibold text-coral">Create an account</Link>
         </p>
       </form>
     </div>

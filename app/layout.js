@@ -1,4 +1,5 @@
 import { Bricolage_Grotesque, Plus_Jakarta_Sans } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import { Toaster } from "sonner";
 import "./globals.css";
 
@@ -12,10 +13,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className={`${bricolage.variable} ${jakarta.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${bricolage.variable} ${jakarta.variable}`}>
       <body className="min-h-screen bg-canvas font-sans text-fg antialiased">
-        {children}
-        <Toaster richColors position="top-right" />
+        {/* Adds or removes the "dark" class on <html> and remembers the choice */}
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
+          {children}
+          <Toaster richColors position="top-right" />
+        </ThemeProvider>
       </body>
     </html>
   );

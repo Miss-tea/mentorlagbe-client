@@ -45,6 +45,7 @@
   html { scroll-behavior: smooth; }
   /* Every heading uses the same font = consistent look */
   h1, h2, h3, h4 { font-family: var(--font-heading); }
+  body { transition: background-color 0.3s ease, color 0.3s ease; }
 }
 
 @layer components {

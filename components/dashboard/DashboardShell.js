@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import Logo from "../Logo";
+import ThemeToggle from "../ThemeToggle";
 
 // Each role sees different sidebar links
 const nav = {
@@ -124,6 +125,7 @@ export default function DashboardShell({ user, children }) {
 
           {/* User profile summary */}
           <div className="flex items-center gap-3">
+            <ThemeToggle />
             <div className="hidden text-right sm:block">
               <p className="text-sm font-bold leading-tight text-fg">{user.name}</p>
               <div className="mt-0.5 flex justify-end gap-1">

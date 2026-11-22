@@ -7,6 +7,7 @@ import { Menu, X as CloseIcon, LayoutDashboard, UserCog, LogOut } from "lucide-r
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 import Logo from "./Logo";
+import ThemeToggle from "./ThemeToggle";
 
 const links = [
   { href: "/", label: "Home" },
@@ -83,6 +84,7 @@ export default function Navbar() {
 
         {/* Right side */}
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           {isPending ? (
             <div className="h-10 w-10 animate-pulse rounded-full bg-line" />
           ) : !user ? (
