@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { CheckCircle2, Lock, X } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { apiFetch } from "@/lib/api";
+import BookmarkButton from "./BookmarkButton";
 
 export default function ApplyBox({ tuition }) {
   const { data: session, isPending } = authClient.useSession();
@@ -80,6 +81,7 @@ export default function ApplyBox({ tuition }) {
             <button onClick={() => setOpen(true)} className="btn btn-primary w-full">Apply for Tuition</button>
           )}
         </div>
+        {isStudent && <BookmarkButton tuitionId={tuition._id} />}
       </div>
 
       {open && (

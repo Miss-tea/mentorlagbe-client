@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import {
   LayoutDashboard, FileText, UserCog, LogOut, PanelLeftClose, PanelLeftOpen, Menu, X,
-  Plus, BookOpen, Users, ClipboardCheck, Receipt, Crown, ArrowLeft, GraduationCap,
+  Plus, BookOpen, Users, ClipboardCheck, Receipt, Crown, ArrowLeft, GraduationCap, Heart,
 } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import Logo from "../Logo";
@@ -16,6 +16,7 @@ const nav = {
   student: [
     { href: "/dashboard/student", label: "Overview", icon: LayoutDashboard },
     { href: "/dashboard/student/my-applications", label: "My Applications", icon: FileText },
+    { href: "/dashboard/student/saved", label: "Saved Tuitions", icon: Heart },
   ],
   tutor: [
     { href: "/dashboard/tutor", label: "Overview", icon: LayoutDashboard },
