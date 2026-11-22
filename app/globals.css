@@ -1,26 +1,68 @@
 @import "tailwindcss";
 
+/* Lets us toggle dark mode later with a "dark" class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Colors that change between light and dark mode */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --canvas: #fff8f0;
+  --surface: #ffffff;
+  --fg: #1b1642;
+  --muted: #5b5780;
+  --line: #eadfee;
+  --outline: #1b1642;
+}
+.dark {
+  --canvas: #120f2b;
+  --surface: #1d1940;
+  --fg: #fff8f0;
+  --muted: #b5b0d6;
+  --line: #342e66;
+  --outline: #fff8f0;
 }
 
+/* Turn the variables into Tailwind classes: bg-canvas, text-fg, border-line ... */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-outline: var(--outline);
+  --font-heading: var(--font-bricolage);
+  --font-sans: var(--font-jakarta);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Brand colors that never change */
+@theme {
+  --color-ink: #1b1642;
+  --color-coral: #ff6b4a;
+  --color-mint: #2dd4bf;
+  --color-sun: #ffc857;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  /* Every heading uses the same font = consistent look */
+  h1, h2, h3, h4 { font-family: var(--font-heading); }
+}
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+  .section { @apply py-20; }
+  .section-title { @apply text-3xl font-extrabold tracking-tight text-fg sm:text-4xl; }
+  .eyebrow { @apply inline-block rounded-full bg-sun/40 px-4 py-1 text-sm font-bold text-fg; }
+  .card { @apply rounded-3xl border border-line bg-surface; }
+
+  /* ONE button style used everywhere (assignment requirement) */
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 border-outline px-6 py-3 font-bold transition-all duration-150;
+    box-shadow: 4px 4px 0 0 var(--outline);
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  .btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0 0 var(--outline); }
+  .btn:active { transform: translate(4px, 4px); box-shadow: 0 0 0 0 var(--outline); }
+  .btn-sm { @apply px-4 py-2 text-sm; }
+  .btn-primary { @apply bg-coral text-white; }
+  .btn-ghost { @apply bg-surface text-fg; }
+  .btn-dark { @apply bg-ink text-white; }
 }

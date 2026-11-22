@@ -39,7 +39,7 @@ export default function SignUpPage() {
   const input = "w-full rounded-xl border border-indigo-200 bg-white px-4 py-3 outline-none focus:border-[#FF6B4A]";
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-[#FFF8F0] px-4">
+    <div className="min-h-[70vh] flex items-center justify-center bg-[#FFF8F0] px-4">
       <form onSubmit={handleSubmit} className="w-full max-w-md space-y-4 rounded-3xl bg-white p-8 shadow-xl">
         <h1 className="text-3xl font-bold text-[#1B1642]">Create your account</h1>
 
@@ -63,6 +63,6 @@ export default function SignUpPage() {
           Already have an account? <Link href="/sign-in" className="font-semibold text-[#FF6B4A]">Sign in</Link>
         </p>
       </form>
-    </main>
+    </div>
   );
 }
