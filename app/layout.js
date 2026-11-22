@@ -12,7 +12,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${bricolage.variable} ${jakarta.variable}`}>
+    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth" className={`${bricolage.variable} ${jakarta.variable}`}>
       <body className="min-h-screen bg-canvas font-sans text-fg antialiased">
         {children}
         <Toaster richColors position="top-right" />
