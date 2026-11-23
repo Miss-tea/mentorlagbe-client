@@ -1,9 +1,7 @@
 @import "tailwindcss";
 
-/* Lets us toggle dark mode later with a "dark" class on <html> */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Colors that change between light and dark mode */
 :root {
   --canvas: #fff8f0;
   --surface: #ffffff;
@@ -21,7 +19,6 @@
   --outline: #fff8f0;
 }
 
-/* Turn the variables into Tailwind classes: bg-canvas, text-fg, border-line ... */
 @theme inline {
   --color-canvas: var(--canvas);
   --color-surface: var(--surface);
@@ -33,7 +30,6 @@
   --font-sans: var(--font-jakarta);
 }
 
-/* Brand colors that never change */
 @theme {
   --color-ink: #1b1642;
   --color-coral: #ff6b4a;
@@ -43,7 +39,7 @@
 
 @layer base {
   html { scroll-behavior: smooth; }
-  /* Every heading uses the same font = consistent look */
+  
   h1, h2, h3, h4 { font-family: var(--font-heading); }
   body { transition: background-color 0.3s ease, color 0.3s ease; }
 }
@@ -55,7 +51,7 @@
   .eyebrow { @apply inline-block rounded-full bg-sun/40 px-4 py-1 text-sm font-bold text-fg; }
   .card { @apply rounded-3xl border border-line bg-surface; }
 
-  /* ONE button style used everywhere (assignment requirement) */
+  
   .btn {
     @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-2xl border-2 border-outline px-6 py-3 font-bold transition-all duration-150;
     box-shadow: 4px 4px 0 0 var(--outline);

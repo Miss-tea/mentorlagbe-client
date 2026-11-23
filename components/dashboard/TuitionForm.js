@@ -4,24 +4,32 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { SUBJECTS, CLASS_LEVELS } from "@/lib/constants";
 import ImageUpload from "./ImageUpload";
-
 const EMPTY = {
-  title: "", subject: "", classLevel: "", mode: "Online", location: "",
-  monthlyFee: "", daysPerWeek: "3", bannerImage: "", description: "",
+  title: "",
+  subject: "",
+  classLevel: "",
+  mode: "Online",
+  location: "",
+  monthlyFee: "",
+  daysPerWeek: "3",
+  bannerImage: "",
+  description: ""
 };
-
-export default function TuitionForm({ initial, submitLabel, onSubmit }) {
-  // Keep only the fields the form knows about (an edited tuition also carries _id, dates, etc.)
-  const start = Object.fromEntries(Object.keys(EMPTY).map((k) => [k, initial?.[k] ?? EMPTY[k]]));
+export default function TuitionForm({
+  initial,
+  submitLabel,
+  onSubmit
+}) {
+  const start = Object.fromEntries(Object.keys(EMPTY).map(k => [k, initial?.[k] ?? EMPTY[k]]));
   const [form, setForm] = useState(start);
   const [saving, setSaving] = useState(false);
-
-  const update = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
+  const update = e => setForm({
+    ...form,
+    [e.target.name]: e.target.value
+  });
   async function submit(e) {
     e.preventDefault();
     const fee = Number(form.monthlyFee);
-
     if (form.title.trim().length < 5) return toast.error("Title must be at least 5 characters");
     if (!form.subject) return toast.error("Please choose a subject");
     if (!form.classLevel) return toast.error("Please choose a class level");
@@ -29,22 +37,22 @@ export default function TuitionForm({ initial, submitLabel, onSubmit }) {
     if (!fee || fee < 100) return toast.error("Monthly fee must be at least 100");
     if (!/^https?:\/\/\S+$/i.test(form.bannerImage.trim())) return toast.error("Please upload a banner image");
     if (form.description.trim().length < 20) return toast.error("Description must be at least 20 characters");
-
     setSaving(true);
     try {
-      await onSubmit({ ...form, monthlyFee: fee, daysPerWeek: Number(form.daysPerWeek) });
+      await onSubmit({
+        ...form,
+        monthlyFee: fee,
+        daysPerWeek: Number(form.daysPerWeek)
+      });
     } catch (err) {
       toast.error(err.message);
     } finally {
       setSaving(false);
     }
   }
-
   const field = "w-full rounded-xl border-2 border-line bg-canvas px-4 py-3 text-fg outline-none focus:border-coral";
   const label = "mb-1 block text-sm font-bold text-fg";
-
-  return (
-    <form onSubmit={submit} className="card max-w-4xl space-y-5 p-6 sm:p-8">
+  return <form onSubmit={submit} className="card max-w-4xl space-y-5 p-6 sm:p-8">
       <div>
         <label className={label}>Title</label>
         <input name="title" value={form.title} onChange={update} placeholder="e.g. HSC Physics Crash Batch" className={field} />
@@ -55,14 +63,14 @@ export default function TuitionForm({ initial, submitLabel, onSubmit }) {
           <label className={label}>Subject</label>
           <select name="subject" value={form.subject} onChange={update} className={field}>
             <option value="">Choose a subject</option>
-            {SUBJECTS.map((s) => <option key={s} value={s}>{s}</option>)}
+            {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
         <div>
           <label className={label}>Class level</label>
           <select name="classLevel" value={form.classLevel} onChange={update} className={field}>
             <option value="">Choose a level</option>
-            {CLASS_LEVELS.map((c) => <option key={c} value={c}>{c}</option>)}
+            {CLASS_LEVELS.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
         </div>
         <div>
@@ -83,14 +91,17 @@ export default function TuitionForm({ initial, submitLabel, onSubmit }) {
         <div>
           <label className={label}>Days per week</label>
           <select name="daysPerWeek" value={form.daysPerWeek} onChange={update} className={field}>
-            {[1, 2, 3, 4, 5, 6, 7].map((d) => <option key={d} value={d}>{d}</option>)}
+            {[1, 2, 3, 4, 5, 6, 7].map(d => <option key={d} value={d}>{d}</option>)}
           </select>
         </div>
       </div>
 
       <div>
         <label className={label}>Banner image</label>
-        <ImageUpload value={form.bannerImage} onChange={(url) => setForm((f) => ({ ...f, bannerImage: url }))} label="Upload banner" />
+        <ImageUpload value={form.bannerImage} onChange={url => setForm(f => ({
+        ...f,
+        bannerImage: url
+      }))} label="Upload banner" />
       </div>
 
       <div>
@@ -101,6 +112,5 @@ export default function TuitionForm({ initial, submitLabel, onSubmit }) {
       <button disabled={saving} className="btn btn-primary disabled:opacity-60">
         {saving ? "Saving..." : submitLabel}
       </button>
-    </form>
-  );
+    </form>;
 }
