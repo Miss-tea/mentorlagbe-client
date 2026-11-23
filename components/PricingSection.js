@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import Link from "next/link";
@@ -29,6 +29,19 @@ function Feature({ children }) {
   );
 }
 
+// Defined OUTSIDE PricingSection, so React does not recreate it on every render
+function ProButton({ isPending, user, loading, onSubscribe }) {
+  if (isPending) return <div className="mt-8 h-14 animate-pulse rounded-2xl bg-white/20" />;
+  if (!user) return <Link href="/sign-in" className="btn btn-primary mt-8">Subscribe with Stripe</Link>;
+  if (user.role === "admin") return <button disabled className="btn btn-primary mt-8 opacity-50">Admins do not need Pro</button>;
+  if (user.plan === "pro") return <button disabled className="btn btn-primary mt-8 opacity-60">✓ You are on Pro</button>;
+  return (
+    <button onClick={onSubscribe} disabled={loading} className="btn btn-primary mt-8 disabled:opacity-60">
+      {loading ? "Opening Stripe..." : "Subscribe with Stripe"}
+    </button>
+  );
+}
+
 export default function PricingSection() {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
@@ -50,18 +63,6 @@ export default function PricingSection() {
       toast.error(err.message);
       setLoading(false);
     }
-  }
-
-  function ProButton() {
-    if (isPending) return <div className="mt-8 h-14 animate-pulse rounded-2xl bg-white/20" />;
-    if (!user) return <Link href="/sign-in" className="btn btn-primary mt-8">Subscribe with Stripe</Link>;
-    if (user.role === "admin") return <button disabled className="btn btn-primary mt-8 opacity-50">Admins do not need Pro</button>;
-    if (user.plan === "pro") return <button disabled className="btn btn-primary mt-8 opacity-60">✓ You are on Pro</button>;
-    return (
-      <button onClick={subscribe} disabled={loading} className="btn btn-primary mt-8 disabled:opacity-60">
-        {loading ? "Opening Stripe..." : "Subscribe with Stripe"}
-      </button>
-    );
   }
 
   return (
@@ -95,10 +96,10 @@ export default function PricingSection() {
             <h3 className="text-2xl font-bold">Pro</h3>
             <p className="mt-2 font-heading text-5xl font-extrabold">${p.price}<span className="text-base font-medium text-white/70"> / one-time</span></p>
             <ul className="mt-6 flex-1 space-y-3">{p.pro.map((f) => <Feature key={f}>{f}</Feature>)}</ul>
-            <ProButton />
+            <ProButton isPending={isPending} user={user} loading={loading} onSubscribe={subscribe} />
           </div>
         </div>
       </div>
     </section>
   );
-}"
+}

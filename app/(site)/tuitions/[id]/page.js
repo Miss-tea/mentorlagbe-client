@@ -17,6 +17,14 @@ export default async function TuitionDetailsPage({ params }) {
   const t = await getTuition(id);
   if (!t) notFound();
 
+  const tutor = t.tutor ?? {
+    name: t.tutorName,
+    email: t.tutorEmail,
+    image: t.tutorImage,
+    bio: t.tutorBio,
+    verified: t.tutorVerified,
+  };
+
   const online = t.mode === "Online";
   const facts = [
     { icon: BookOpen, label: "Subject", value: t.subject },
@@ -60,21 +68,21 @@ export default async function TuitionDetailsPage({ params }) {
 
             {/* Tutor summary */}
             <div className="card flex items-center gap-5 p-6">
-              {t.tutor.image ? (
+              {tutor?.image ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={t.tutor.image} alt={t.tutor.name} className="h-16 w-16 rounded-full border-2 border-outline object-cover" />
+                <img src={tutor.image} alt={tutor.name || "Tutor"} className="h-16 w-16 rounded-full border-2 border-outline object-cover" />
               ) : (
                 <span className="grid h-16 w-16 shrink-0 place-items-center rounded-full border-2 border-outline bg-sun font-heading text-2xl font-extrabold text-ink">
-                  {t.tutor.name?.[0]}
+                  {tutor?.name?.[0] || "T"}
                 </span>
               )}
               <div>
                 <p className="text-sm font-semibold text-muted">Your tutor</p>
                 <p className="flex items-center gap-2 text-xl font-bold text-fg">
-                  {t.tutor.name}
-                  {t.tutor.verified && <BadgeCheck className="text-mint" size={20} title="Verified tutor" />}
+                  {tutor?.name || "Tutor"}
+                  {tutor?.verified && <BadgeCheck className="text-mint" size={20} title="Verified tutor" />}
                 </p>
-                <p className="mt-1 text-muted">{t.tutor.bio}</p>
+                {tutor?.bio && <p className="mt-1 text-muted">{tutor.bio}</p>}
               </div>
             </div>
           </div>
