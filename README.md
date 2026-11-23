@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# MentorLagbe 🎓
 
-## Getting Started
+> Smart tuition and mentorship platform that connects students with verified tutors.
 
-First, run the development server:
+**Live site:** https://mentorlagbe-client-ruddy.vercel.app/
+**Server API:** https://mentorlagbe-server-phi.vercel.app/
+**Server repo:** https://github.com/Miss-tea/mentorlagbe-server
+
+## Purpose
+
+Students and parents struggle to find verified tutors by subject, class level, mode and budget, and tutors lack a structured place to showcase batches. MentorLagbe solves both in one platform with three roles: Student, Tutor and Admin.
+
+## Demo credentials
+
+| Role | Email | Password |
+|---|---|---|
+| Admin | admin@mentorlagbe.com | Admin@12345 |
+| Tutor | tutor@mentorlagbe.com | Tutor@12345 |
+| Student | student@mentorlagbe.com | Student@12345 |
+
+Stripe is in **test mode**. Use card `4242 4242 4242 4242`, any future date, any CVC.
+
+## Key features
+
+- Role-based authentication (Better Auth + JWT) for Student, Tutor and Admin
+- Server-side search, filters (subject, class level, mode), sorting and pagination
+- Tutors post tuitions (with image upload), edit, close or reopen, delete, and manage applicants
+- Admin moderation: approve or reject tuitions, manage user roles, view transactions and revenue
+- Students apply (duplicates prevented), track status and cancel pending applications
+- Stripe Checkout for the Pro plan (Tutor $15, Student $10) with webhook and verification
+- Free plan limits: 2 tuition posts for tutors, 5 bookmarks for students. Pro removes them
+- Image uploads through the ImgBB API (key kept on the server)
+- Bookmarks / Saved Tuitions for students
+- Dark and light theme toggle
+- Responsive design, loading skeletons, custom 404 and error pages, toast notifications
+
+## Challenges and optional features completed
+
+Server-side search and filter, JWT verification with `verifyToken`, `verifyStudent`, `verifyTutor`, `verifyAdmin` middlewares, ImgBB image uploads, server-side pagination, seeded connected data, bookmarks and dark mode.
+
+## Architecture note
+
+Better Auth runs inside the Next.js app so its session cookies stay on the same domain as the site (reliable reloads on private routes). It uses the same MongoDB database as the Express API. The Express server verifies the JWT against Better Auth's JWKS endpoint and checks the user's role in the database on every protected request.
+
+## Tech stack
+
+Next.js (App Router), Tailwind CSS, Better Auth, Express.js, MongoDB, Stripe, ImgBB.
+
+## npm packages
+
+**Client:** next, react, better-auth, @better-auth/mongo-adapter, mongodb, sonner, framer-motion, lucide-react, react-icons, next-themes, tailwindcss
+
+**Server:** express, cors, dotenv, mongodb, jose, stripe, multer
+
+## Run locally
 
 ```bash
+git clone https://github.com/Miss-tea/mentorlagbe-client
+cd mentorlagbe-client
+npm install
+cp .env.example .env.local   # tshen fill in the values
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Environment variables (`.env.local`): `MONGODB_URI`, `DB_NAME`, `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL`, `NEXT_PUBLIC_API_URL`.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The server is in a separate repository. See its README.
