@@ -13,7 +13,7 @@ Students and parents struggle to find verified tutors by subject, class level, m
 ## Demo credentials
 
 | Role | Email | Password |
-|---|---|---|
+|  --- |  ---  |   ---    |
 | Admin | admin@mentorlagbe.com | Admin@12345 |
 | Tutor | tutor@mentorlagbe.com | Tutor@12345 |
 | Student | student@mentorlagbe.com | Student@12345 |
