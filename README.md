@@ -15,7 +15,7 @@ Students and parents struggle to find verified tutors by subject, class level, m
 | Role | Email | Password |
 |  --- |  ---  |   ---    |
 | Admin | admin@mentorlagbe.com | Admin@12345 |
-| Tutor | tutor@mentorlagbe.com | Tutor@12345 |
+| Tutor | tutor@gmail.com | Tutor@12345 |
 | Student | student@mentorlagbe.com | Student@12345 |
 
 Stripe is in **test mode**. Use card `4242 4242 4242 4242`, any future date, any CVC.
